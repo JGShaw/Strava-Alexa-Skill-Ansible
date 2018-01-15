@@ -1,0 +1,23 @@
+- name: users user xxx
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    generate_ssh_key: yes
+  with_items: "{{ base_users }}"
+
+- name: users authorized_key xxx
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.key }}"
+  with_items: "{{ base_users }}"
+
+- name: users file /etc/sudoers.d
+  file:
+    path: /etc/sudoers.d
+    mode: 0755
+
+- name: users template /etc/sudoers.d/user_accounts
+  template:
+    src: users/sudoers.j2
+    dest: /etc/sudoers.d/user_accounts
+    mode: 0440
