@@ -1,0 +1,5 @@
+- name: setup file /apps
+  file:
+    path: /apps
+    state: directory
+    mode: 0777

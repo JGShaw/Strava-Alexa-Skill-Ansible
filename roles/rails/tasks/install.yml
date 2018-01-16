@@ -1,0 +1,37 @@
+- name: install yum xxx 
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - gcc
+    - ruby24
+    - ruby24-devel
+    - rubygems24-devel
+    - rubygem24-json
+    - git
+    - libxml2
+    - libxml2-devel
+    - libxslt
+    - libxslt-devel
+    - postgresql96
+    - postgresql96-devel
+    - openssl-devel
+
+- name: install alternatives /usr/bin/ruby2.4
+  alternatives:
+    name: ruby
+    path: /usr/bin/ruby2.4
+
+- name: install gem xxx
+  gem:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - bundler
+  become: no
+
+- name: install git https://github.com/JGShaw/Strava-Alexa-Skill-Rails.git
+  git:
+    repo: https://github.com/JGShaw/Strava-Alexa-Skill-Rails.git
+    dest: /apps/Strava-Alexa-Skill-Rails
+  become: no
